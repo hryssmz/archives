@@ -1,0 +1,150 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Sample SAM App
+
+Parameters:
+  ApigwEndpoint:
+    Type: String
+    Description: Endpoint for local API Gateway access by end user
+    Default: ""
+
+  EnvironmentType:
+    Type: String
+    Description: API Gateway deployment stage
+    Default: dev
+    AllowedValues: [dev, prod, sam]
+
+  Endpoint:
+    Type: String
+    Description: Endpoint for local AWS resource access within app
+    Default: ""
+
+Conditions:
+  IsLocal:
+    Fn::Not:
+      - Fn::Equals:
+          - Ref: Endpoint
+          - ""
+
+  IsSam:
+    Fn::Equals:
+      - Ref: EnvironmentType
+      - sam
+
+Globals:
+  Function:
+    Handler: index.handler
+    Runtime: nodejs16.x
+    Timeout: 10
+    Environment:
+      Variables:
+        ENDPOINT:
+          Ref: Endpoint
+    Architectures:
+      - x86_64
+
+Resources:
+  # REST API
+  HelloWorldApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Description: Hello World REST API
+      Name:
+        Fn::If:
+          - IsLocal
+          - HelloWorldApi
+          - Ref: AWS::NoValue
+      StageName:
+        Ref: EnvironmentType
+
+  # Lambda functions (REST API)
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/hello-world/dist
+      Description: Hello World function
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Method: GET
+            Path: /
+            RestApiId:
+              Ref: HelloWorldApi
+      FunctionName:
+        Fn::If:
+          - IsLocal
+          - HelloWorldFunction
+          - Ref: AWS::NoValue
+
+  HelloAxiosFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/hello-axios/dist
+      Description: A simple function has dependencies
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Method: GET
+            Path: /axios
+            RestApiId:
+              Ref: HelloWorldApi
+      FunctionName:
+        Fn::If:
+          - IsLocal
+          - HelloAxiosFunction
+          - Ref: AWS::NoValue
+
+  # HelloLayerFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     CodeUri: functions/hello-layer/dist
+  #     Description: A simple function uses layers
+  #     Events:
+  #       ApiEvent:
+  #         Type: Api
+  #         Properties:
+  #           Method: GET
+  #           Path: /layer
+  #           RestApiId:
+  #             Ref: HelloWorldApi
+  #     FunctionName:
+  #       Fn::If:
+  #         - IsLocal
+  #         - HelloLayerFunction
+  #         - Ref: AWS::NoValue
+  #     Layers:
+  #       - Ref: NpmLayer
+  #       - Ref: HelloWorldLayer
+
+  # # Lambda Layers
+  # NpmLayer:
+  #   Type: AWS::Serverless::LayerVersion
+  #   Properties:
+  #     ContentUri: layers/npm
+  #     CompatibleArchitectures:
+  #       - x86_64
+  #     CompatibleRuntimes:
+  #       - nodejs16.x
+  #   Metadata:
+  #     BuildMethod: nodejs16.x
+
+  # HelloWorldLayer:
+  #   Type: AWS::Serverless::LayerVersion
+  #   Properties:
+  #     ContentUri: layers/hello-world
+  #     CompatibleArchitectures:
+  #       - x86_64
+  #     CompatibleRuntimes:
+  #       - nodejs16.x
+  #   Metadata:
+  #     BuildMethod: nodejs16.x
+
+Outputs:
+  HelloWorldApi:
+    Value:
+      Fn::If:
+        - IsLocal
+        - Fn::Sub: ${ApigwEndpoint}/restapis/${HelloWorldApi}/${HelloWorldApi.Stage}/_user_request_/
+        - Fn::Sub: https://${HelloWorldApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${HelloWorldApi.Stage}/

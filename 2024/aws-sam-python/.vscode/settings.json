@@ -1,0 +1,18 @@
+{
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "isort.args": [],
+  "prettier.arrowParens": "avoid",
+  "python.formatting.blackArgs": [],
+  "python.formatting.provider": "black",
+  "python.linting.flake8Args": [],
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyArgs": [],
+  "python.linting.pylintEnabled": false
+}

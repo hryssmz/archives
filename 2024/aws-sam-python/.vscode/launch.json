@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "pytest single method",
+      "type": "python",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "tests/unit/hello_world_app/hello_world",
+        "-o",
+        "pythonpath=. functions/hello_world_app/hello_world"
+      ],
+      "justMyCode": true
+    }
+  ]
+}

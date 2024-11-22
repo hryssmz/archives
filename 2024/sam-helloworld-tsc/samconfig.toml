@@ -1,0 +1,20 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "sam-helloworld-tsc"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-d2tye91n2q1v"
+s3_prefix = "sam-helloworld-tsc"
+region = "ap-northeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+
+[samlocal]
+[samlocal.global.parameters]
+region = "ap-northeast-1"
+stack_name = "sam-helloworld-ts"
+[samlocal.deploy.parameters]
+on_failure = "DELETE"
+no_progressbar = true
+resolve_s3 = true
