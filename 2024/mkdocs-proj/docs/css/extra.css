@@ -1,0 +1,19 @@
+code {
+  color: coral;
+}
+
+footer > p:last-of-type {
+  display: none;
+}
+
+pre > code,
+pre > code > span {
+  font-size: 14px;
+}
+
+blockquote {
+  border-left: 5px solid steelblue;
+  padding: 0 5px;
+  margin: 0 5px;
+  background: whitesmoke;
+}

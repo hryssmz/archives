@@ -1,0 +1,36 @@
+site_name: Django REST framework
+nav:
+  - Home: index.md
+  - Tutorial:
+      - Quickstart: tutorial/quickstart.md
+      - 1 - Serialization: tutorial/1-serialization.md
+      - 2 - Requests and responses: tutorial/2-requests-and-responses.md
+dev_addr: localhost:13002
+theme:
+  name: mkdocs
+  highlightjs: true
+  hljs_style: vs
+  hljs_languages:
+    - python
+    - sh
+    - txt
+  shortcuts:
+    help: 191 # ?
+    next: 78 # n
+    previous: 80 # p
+    search: 83 # s
+  nav_style: dark
+extra_css:
+  - css/extra.css
+extra_javascript:
+  - js/extra.js
+copyright: |
+  &copy; 2022 Hiroyasu Shimizu (<a href="mailto:hryssmz@outlook.com"
+    >hryssmz@outlook.com</a
+  >)
+markdown_extensions:
+  - toc:
+      permalink: "\uf0c1"
+      separator: "-"
+use_directory_urls: false
+strict: true

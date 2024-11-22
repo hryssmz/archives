@@ -1,0 +1,11 @@
+// components/mui-data-display/badge/SimpleBadge.tsx
+import Badge from "@mui/material/Badge";
+import MailIcon from "@mui/icons-material/Mail";
+
+export default function SimpleBadge() {
+  return (
+    <Badge badgeContent={4} color="primary">
+      <MailIcon color="action" />
+    </Badge>
+  );
+}

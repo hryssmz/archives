@@ -1,0 +1,3 @@
+.aws-sam/
+.vscode/
+rust_app/target/

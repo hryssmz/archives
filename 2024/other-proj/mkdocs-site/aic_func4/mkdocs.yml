@@ -1,0 +1,11 @@
+site_name: 音声辞書更新機能
+nav:
+  - Home: index.md
+extra_css:
+  - css/extra.css
+markdown_extensions:
+  - toc:
+      permalink: "&#x1f517;"
+theme:
+  name: mkdocs
+  highlightjs: true

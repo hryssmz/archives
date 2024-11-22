@@ -1,0 +1,29 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.arrowParens": "avoid",
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "[sql]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+  },
+  "[django-html]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
+  },
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.formatting.blackArgs": ["--line-length", "79"],
+  "python.linting.flake8Args": ["--max-line-length", "79"],
+  "python.sortImports.args": [
+    "--line-length",
+    "79",
+    "--force-sort-within-sections"
+  ]
+}

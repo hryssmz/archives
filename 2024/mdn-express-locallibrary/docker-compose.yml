@@ -1,0 +1,41 @@
+services:
+  app:
+    build: .
+    command: npm start
+    container_name: mdn-express-locallibrary-app
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: production
+      HOST:
+      PORT: 3000
+      DB_ATLAS: "FALSE"
+      DB_USER:
+      DB_PASS:
+      DB_HOST: db
+      DB_PORT: 27017
+      DB_NAME: local_library
+    image: mdn-express-locallibrary
+    networks:
+      - default
+    ports:
+      - 3000:3000
+    working_dir: /opt
+
+  db:
+    container_name: mdn-express-locallibrary-db
+    image: mongo:5
+    networks:
+      - default
+    volumes:
+      - type: volume
+        source: db-data
+        target: /data/db
+
+networks:
+  default:
+    name: mdn-express-locallibrary
+
+volumes:
+  db-data:
+    name: mdn-express-locallibrary-db

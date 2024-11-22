@@ -1,0 +1,140 @@
+input TableBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+}
+
+input TableIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+}
+
+input TableFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+}
+
+input TableStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  size: ModelSizeInput
+}
+
+input TableIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  size: ModelSizeInput
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+type Todo {
+  id: ID!
+  name: String!
+  description: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type TodoConnection {
+  items: [Todo]
+  nextToken: String
+}
+
+input CreateTodoInput {
+  name: String!
+  description: String
+}
+
+input DeleteTodoInput {
+  id: ID!
+}
+
+input UpdateTodoInput {
+  id: ID!
+  name: String
+  description: String
+}
+
+input TableTodoFilterInput {
+  id: TableIDFilterInput
+  name: TableStringFilterInput
+  description: TableStringFilterInput
+}
+
+type Query {
+  getTodo(id: ID!): Todo
+  listTodos(
+    filter: TableTodoFilterInput
+    limit: Int
+    nextToken: String
+  ): TodoConnection
+}
+
+type Mutation {
+  createTodo(input: CreateTodoInput!): Todo
+  updateTodo(input: UpdateTodoInput!): Todo
+  deleteTodo(input: DeleteTodoInput!): Todo
+}
+
+type Subscription {
+  onCreateTodo(
+    id: ID
+    name: String
+    description: String
+  ): Todo @aws_subscribe(mutations: ["createTodo"])
+  onUpdateTodo(
+    id: ID
+    name: String
+    description: String
+  ): Todo @aws_subscribe(mutations: ["updateTodo"])
+  onDeleteTodo(
+    id: ID
+    name: String
+    description: String
+  ): Todo @aws_subscribe(mutations: ["deleteTodo"])
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}

@@ -1,0 +1,7 @@
+{
+  "source_key": "tests/fixtures/image.jpg",
+  "dest_key": "tests/tmp/signed_image.jpg",
+  "manifest_key": "tests/fixtures/test.json",
+  "signcert_key": "tests/fixtures/es256_certs.pem",
+  "pkey_key": "tests/fixtures/es256_private.key"
+}

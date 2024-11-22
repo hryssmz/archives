@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Quickstart - Django REST framework</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/vs.min.css">
+        <link href="../css/extra.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/sh.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/languages/txt.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">Django REST framework</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Tutorial <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="quickstart.html" class="dropdown-item active">Quickstart</a>
+</li>
+                                    
+<li>
+    <a href="1-serialization.html" class="dropdown-item">1 - Serialization</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../index.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="1-serialization.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#quickstart" class="nav-link">Quickstart</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#project-setup" class="nav-link">Project setup</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#serializers" class="nav-link">Serializers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#views" class="nav-link">Views</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#urls" class="nav-link">URLs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pagination" class="nav-link">Pagination</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#settings" class="nav-link">Settings</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#testing-our-api" class="nav-link">Testing our API</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="quickstart">Quickstart<a class="headerlink" href="#quickstart" title="Permanent link"></a></h1>
+<p>We're going to create a simple API to allow admin users to view and edit the users and groups in the system.</p>
+<h2 id="project-setup">Project setup<a class="headerlink" href="#project-setup" title="Permanent link"></a></h2>
+<p>Create a new Django project named <code>tutorial</code>, then start a new app called <code>quickstart</code>.</p>
+<pre><code class="language-sh"># Create the project directory
+mkdir tutorial
+cd tutorial
+
+# Create a virtual environment to isolate our package dependencies locally
+python3 -m venv env
+source env/bin/activate  # On Windows use `env\Scripts\activate`
+
+# Install Django and Django REST framework into the virtual environment
+pip install django
+pip install djangorestframework
+
+# Set up a new project with a single application
+django-admin startproject tutorial .  # Note the trailing '.' character
+cd tutorial
+django-admin startapp quickstart
+cd ..
+</code></pre>
+<p>The project layout should look like:</p>
+<pre><code class="language-txt">$ pwd
+&lt;some path&gt;/tutorial
+$ find .
+.
+./manage.py
+./tutorial
+./tutorial/__init__.py
+./tutorial/quickstart
+./tutorial/quickstart/__init__.py
+./tutorial/quickstart/admin.py
+./tutorial/quickstart/apps.py
+./tutorial/quickstart/migrations
+./tutorial/quickstart/migrations/__init__.py
+./tutorial/quickstart/models.py
+./tutorial/quickstart/tests.py
+./tutorial/quickstart/views.py
+./tutorial/asgi.py
+./tutorial/settings.py
+./tutorial/urls.py
+./tutorial/wsgi.py
+</code></pre>
+<p>It may look unusual that the application has been created within the project directory. Using the project's namespace avoids name clashes with external modules (a topic that goes outside the scope of the quickstart).</p>
+<p>Now sync your database for the first time:</p>
+<pre><code class="language-sh">python manage.py migrate
+</code></pre>
+<p>We'll also create an initial user named <code>admin</code> with a password of <code>password123</code>. We'll authenticate as that user later in our example.</p>
+<pre><code class="language-sh">python manage.py createsuperuser --email admin@example.com --username admin
+</code></pre>
+<p>Once you've set up a database and the initial user is created and ready to go, open up the app's directory and we'll get coding...</p>
+<h2 id="serializers">Serializers<a class="headerlink" href="#serializers" title="Permanent link"></a></h2>
+<p>First up we're going to define some serializers. Let's create a new module named <code>tutorial/quickstart/serializers.py</code> that we'll use for our data representations.</p>
+<pre><code class="language-py">from django.contrib.auth.models import User, Group
+from rest_framework import serializers
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'groups']
+
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['url', 'name']
+</code></pre>
+<p>Notice that we're using hyperlinked relations in this case with <code>HyperlinkedModelSerializer</code>. You can also use primary key and various other relationships, but hyperlinking is good RESTful design.</p>
+<h2 id="views">Views<a class="headerlink" href="#views" title="Permanent link"></a></h2>
+<p>Right, we'd better write some views then. Open <code>tutorial/quickstart/views.py</code> and get typing.</p>
+<pre><code class="language-py">from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from rest_framework import permissions
+from tutorial.quickstart.serializers import UserSerializer, GroupSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    &quot;&quot;&quot;
+    API endpoint that allows users to be viewed or edited.
+    &quot;&quot;&quot;
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    &quot;&quot;&quot;
+    API endpoint that allows groups to be viewed or edited.
+    &quot;&quot;&quot;
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+</code></pre>
+<p>Rather than write multiple views we're grouping together all the common behavior into classes called <code>ViewSets</code>.</p>
+<p>We can easily break these down into individual views if we need to, but using viewsets keeps the view logic nicely organized as well as being very concise.</p>
+<h2 id="urls">URLs<a class="headerlink" href="#urls" title="Permanent link"></a></h2>
+<p>Okay, now let's wire up the API URLs. On to <code>tutorial/urls.py</code>...</p>
+<pre><code class="language-py">from django.urls import include, path
+from rest_framework import routers
+from tutorial.quickstart import views
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+</code></pre>
+<p>Because we're using viewsets instead of views, we can automatically generate the URL conf for our API, by simply registering the viewsets with a router class.</p>
+<p>Again, if we need more control over the API URLs we can simply drop down to using regular class-based views, and writing the URL conf explicitly.</p>
+<p>Finally, we're including default login and logout views for use with the browsable API. That's optional, but useful if your API requires authentication and you want to use the browsable API.</p>
+<h2 id="pagination">Pagination<a class="headerlink" href="#pagination" title="Permanent link"></a></h2>
+<p>Pagination allows you to control how many objects per page are returned. To enable it add the following lines to <code>tutorial/settings.py</code></p>
+<pre><code class="language-py">REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+</code></pre>
+<h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link"></a></h2>
+<p>Add <code>'rest_framework'</code> to <code>INSTALLED_APPS</code>. The settings module will be in <code>tutorial/settings.py</code></p>
+<pre><code class="language-py">INSTALLED_APPS = [
+    ...
+    'rest_framework',
+]
+</code></pre>
+<p>Okay, we're done.</p>
+<h2 id="testing-our-api">Testing our API<a class="headerlink" href="#testing-our-api" title="Permanent link"></a></h2>
+<p>We're now ready to test the API we've built. Let's fire up the server from the command line.</p>
+<pre><code class="language-sh">python manage.py runserver
+</code></pre>
+<p>We can now access our API, both from the command-line, using tools like <code>curl</code>...</p>
+<pre><code class="language-txt">$ curl -H 'Accept: application/json; indent=4' -u admin:password123 http://127.0.0.1:8000/users/
+{
+    &quot;count&quot;: 2,
+    &quot;next&quot;: null,
+    &quot;previous&quot;: null,
+    &quot;results&quot;: [
+        {
+            &quot;email&quot;: &quot;admin@example.com&quot;,
+            &quot;groups&quot;: [],
+            &quot;url&quot;: &quot;http://127.0.0.1:8000/users/1/&quot;,
+            &quot;username&quot;: &quot;admin&quot;
+        },
+    ]
+}
+</code></pre>
+<p>Or using the <a href="https://httpie.io/docs#installation">httpie</a>, command line tool...</p>
+<pre><code class="language-txt">$ http -a admin:password123 http://127.0.0.1:8000/users/
+
+HTTP/1.1 200 OK
+...
+{
+    &quot;count&quot;: 2,
+    &quot;next&quot;: null,
+    &quot;previous&quot;: null,
+    &quot;results&quot;: [
+        {
+            &quot;email&quot;: &quot;admin@example.com&quot;,
+            &quot;groups&quot;: [],
+            &quot;url&quot;: &quot;http://localhost:8000/users/1/&quot;,
+            &quot;username&quot;: &quot;paul&quot;
+        },
+    ]
+}
+</code></pre>
+<p>Or directly through the browser, by going to the URL <code>http://127.0.0.1:8000/users/</code>...</p>
+<p><img alt="quickstart.png" src="fig/quickstart.png" /></p>
+<p>If you're working through the browser, make sure to login using the control in the top right corner.</p>
+<p>Great, that was easy!</p>
+<p>If you want to get a more in depth understanding of how REST framework fits together head on over to <a href="https://www.django-rest-framework.org/tutorial/1-serialization/">the tutorial</a>, or start browsing the <a href="https://www.django-rest-framework.org/api-guide/requests/">API guide</a>.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>&copy; 2022 Hiroyasu Shimizu (<a href="mailto:hryssmz@outlook.com"
+  >hryssmz@outlook.com</a
+>)
+</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../js/extra.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

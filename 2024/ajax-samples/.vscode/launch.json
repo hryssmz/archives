@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Django",
+      "cwd": "${workspaceFolder}/server-django",
+      "type": "python",
+      "request": "launch",
+      "program": "manage.py",
+      "args": ["runserver", "0:13002"],
+      "django": true,
+      "justMyCode": true
+    },
+    {
+      "name": "Python: FastAPI",
+      "cwd": "${workspaceFolder}/server-fastapi",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["main:app", "--host", "0.0.0.0", "--port", "13002"],
+      "jinja": true,
+      "justMyCode": true
+    },
+    {
+      "name": "npm run dev",
+      "cwd": "${workspaceFolder}/server-express",
+      "request": "launch",
+      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

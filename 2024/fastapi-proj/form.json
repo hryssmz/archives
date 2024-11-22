@@ -1,0 +1,6 @@
+{
+  "grant_type": "authorization_code",
+  "code": "1e244237-79d8-40f8-af92-02ade24cd0ee",
+  "client_id": "76equipn0ae42ju0rjplio39ni",
+  "redirect_uri": "http://localhost:13000/docs/oauth2-redirect"
+}
